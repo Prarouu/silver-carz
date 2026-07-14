@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050505;
+  --foreground: #e8e8e8;
+  --silver: #c0c0c0;
+  --silver-muted: #8a8a8a;
+  --accent: #e10600;
+  --accent-soft: rgba(225, 6, 0, 0.35);
+  --surface: #111111;
+  --surface-elevated: #1a1a1a;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-silver: var(--silver);
+  --color-silver-muted: var(--silver-muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-border: var(--border);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-sans);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  letter-spacing: -0.01em;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.03em;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* Hide default cursor on interactive desktop only when custom cursor is active */
+@media (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor a,
+  body.has-custom-cursor button {
+    cursor: none;
+  }
+}
+
+.section-padding {
+  @apply px-5 md:px-10 lg:px-16;
+}
+
+.premium-card {
+  @apply rounded-[1.75rem] md:rounded-[2rem] border border-white/[0.06] bg-[#0c0c0c]/90 backdrop-blur-md;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 24px 60px -32px rgba(0, 0, 0, 0.85);
+}
+
+.premium-glow {
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(225, 6, 0, 0.12) 0%,
+    transparent 55%
+  );
+}
+
+.section-index {
+  @apply text-accent font-medium tracking-[0.08em];
+}

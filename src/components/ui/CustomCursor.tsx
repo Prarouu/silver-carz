@@ -1,0 +1,100 @@
+"use client";
+
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  AnimatePresence,
+} from "framer-motion";
+import { useEffect, useState } from "react";
+
+type CursorState = {
+  label: string;
+  size: number;
+};
+
+export function CustomCursor() {
+  const [visible, setVisible] = useState(false);
+  const [enabled, setEnabled] = useState(false);
+  const [state, setState] = useState<CursorState>({ label: "", size: 16 });
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 420, damping: 32 });
+  const springY = useSpring(y, { stiffness: 420, damping: 32 });
+
+  useEffect(() => {
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    if (!finePointer) return;
+
+    setEnabled(true);
+    document.body.classList.add("has-custom-cursor");
+
+    const onMove = (e: MouseEvent) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+      setVisible(true);
+    };
+
+    const onLeave = () => setVisible(false);
+
+    const onOver = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest?.(
+        "[data-cursor]"
+      ) as HTMLElement | null;
+
+      if (target) {
+        const label = target.dataset.cursorLabel || "";
+        const size = Number(target.dataset.cursorSize || 56);
+        setState({ label, size });
+      } else {
+        setState({ label: "", size: 16 });
+      }
+    };
+
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseover", onOver);
+    document.documentElement.addEventListener("mouseleave", onLeave);
+
+    return () => {
+      document.body.classList.remove("has-custom-cursor");
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseover", onOver);
+      document.documentElement.removeEventListener("mouseleave", onLeave);
+    };
+  }, [x, y]);
+
+  if (!enabled) return null;
+
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none fixed top-0 left-0 z-[9999] mix-blend-difference"
+      style={{ x: springX, y: springY }}
+    >
+      <AnimatePresence>
+        {visible && (
+          <motion.div
+            key="cursor"
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              width: state.size,
+              height: state.size,
+            }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ type: "spring", stiffness: 380, damping: 28 }}
+            className="relative -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/90 bg-white/15 flex items-center justify-center"
+          >
+            {state.label ? (
+              <span className="text-[10px] font-medium tracking-[0.12em] uppercase text-white">
+                {state.label}
+              </span>
+            ) : null}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
