@@ -41,25 +41,32 @@ export function Hero() {
             className="mb-4 text-xs font-medium tracking-[0.14em] uppercase text-silver-muted"
           >
             <span className="section-index mr-2">[01]</span>
-            Premium auto detailing · Mumbai
+            Silver Carz · Rajendra Nagar, Nagpur
           </motion.p>
           <motion.h1
             variants={fadeUp}
             className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl lg:text-[3.75rem] font-semibold leading-[1.05] tracking-tight text-foreground"
           >
-            Bringing your car&apos;s shine
-            <span className="block text-silver"> back to life.</span>
+            Premium car detailing{" "}
+            <span className="block text-silver">&amp; car wash in Nagpur.</span>
           </motion.h1>
           <motion.p
             variants={fadeUp}
             className="mt-6 max-w-md text-base md:text-lg text-silver-muted leading-relaxed"
           >
-            Studio-grade exterior, interior, and ceramic detailing — for
-            drivers across Mumbai who expect a showroom finish, every time.
+            Studio-grade car wash from ₹200, interior deep cleaning, ceramic
+            coating, and paint correction — a showroom finish for drivers
+            across Nagpur, every time.
           </motion.p>
-          <motion.div variants={fadeUp} className="mt-10">
+          <motion.div
+            variants={fadeUp}
+            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5"
+          >
             <Button variant="circle" href="#contact" cursorLabel="Book">
               Book a detail
+            </Button>
+            <Button variant="ghost" href="#prices" cursorLabel="Rates">
+              View rate card
             </Button>
           </motion.div>
         </motion.div>
@@ -73,7 +80,7 @@ export function Hero() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 pointer-events-none" />
           <Image
             src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=80"
-            alt="Luxury black car detail"
+            alt="Premium car detailing in Nagpur — polished luxury black car at Silver Carz studio"
             fill
             priority
             className="object-cover object-center"

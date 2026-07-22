@@ -5,38 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { Button } from "@/components/ui/Button";
 import { fadeUp } from "@/lib/animations";
-
-const categories = ["Hatchback", "Sedan", "SUV / MUV"] as const;
-
-const rateCard = [
-  { service: "Basic Water Wash", prices: ["₹200", "₹250", "₹300"] },
-  { service: "Touchless Shampoo Wash", prices: ["₹350", "₹400", "₹450"] },
-  {
-    service: "Touchless Wash + Vacuum + Tyre / Interior Polish",
-    prices: ["₹600", "₹700", "₹800"],
-  },
-  {
-    service: "Premium Car Spa (Wash + Vacuum + Polish + Wax)",
-    prices: ["₹1,200", "₹1,400", "₹1,600"],
-  },
-  {
-    service: "Interior Deep Cleaning",
-    prices: ["₹2,000", "₹2,500", "₹2,800"],
-  },
-  { service: "Engine Bay Cleaning", prices: ["₹600", "₹650", "₹700"] },
-  {
-    service: "Ceramic / PPF Shampoo Wash",
-    prices: ["₹700", "₹750", "₹800"],
-  },
-  {
-    service: "Premium Detailing Wash (Full Exterior / Interior / Wax)",
-    prices: ["₹3,000", "₹3,500", "₹4,000"],
-  },
-  { service: "Rubbing & Polishing", prices: ["₹2,500", "₹2,800", "₹3,500"] },
-  { service: "Ceramic Coating", prices: ["₹13,000", "₹15,000", "₹18,000"] },
-];
-
-const alsoDone = ["Denting", "Painting", "Service", "Repairing"];
+import { categories, rateCard, alsoDone } from "@/lib/pricing";
 
 export function Pricing() {
   const [vehicle, setVehicle] = useState(0);
@@ -44,10 +13,10 @@ export function Pricing() {
   return (
     <SectionWrapper
       id="prices"
-      index="05"
+      index="03"
       eyebrow="Rate card"
-      title="Transparent pricing."
-      description="Pick your vehicle type — see exact rates instantly. All prices in INR."
+      title="Car wash & detailing prices in Nagpur."
+      description="Pick your vehicle type — see exact rates instantly. All prices in INR, no hidden charges."
       className="bg-surface/40"
     >
       {/* Mobile: tabbed card list */}

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Droplets, Sparkles, Shield, Wind } from "lucide-react";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
+import { Button } from "@/components/ui/Button";
 import { fadeUp } from "@/lib/animations";
 
 const services = [
@@ -34,8 +35,8 @@ export function Services() {
       id="services"
       index="02"
       eyebrow="Services"
-      title="Detailing, refined."
-      description="A focused menu of packages built around finish quality — not rushed add-ons."
+      title="Car detailing services in Nagpur."
+      description="A focused menu of packages built around finish quality — not rushed add-ons. Washing, detailing, coating, denting and painting, all under one roof."
     >
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {services.map((service) => (
@@ -59,6 +60,18 @@ export function Services() {
           </motion.article>
         ))}
       </div>
+
+      <motion.div
+        variants={fadeUp}
+        className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
+      >
+        <Button href="#prices" variant="pill" cursorLabel="Rates">
+          See full rate card
+        </Button>
+        <Button href="#contact" variant="ghost" cursorLabel="Book">
+          Book a service
+        </Button>
+      </motion.div>
     </SectionWrapper>
   );
 }

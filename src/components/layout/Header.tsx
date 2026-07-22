@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Phone } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
+import { site } from "@/lib/site";
 
 const links = [
   { href: "#services", label: "Services" },
   { href: "#prices", label: "Prices" },
-  { href: "#about", label: "About Us" },
+  { href: "#location", label: "Location" },
   { href: "#gallery", label: "Gallery" },
+  { href: "#about", label: "About Us" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -55,14 +57,14 @@ export function Header() {
         </nav>
 
         <a
-          href="tel:+919876543210"
+          href={site.phoneHref}
           data-cursor
           data-cursor-label="Call"
           data-cursor-size="64"
           className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2.5 text-xs font-medium tracking-wide text-white hover:bg-[#ff1a12] transition-colors"
         >
           <Phone className="h-3.5 w-3.5" />
-          <span className="hidden sm:inline">+91 98765 43210</span>
+          <span className="hidden sm:inline">{site.phone}</span>
           <span className="sm:hidden">Call</span>
         </a>
       </div>

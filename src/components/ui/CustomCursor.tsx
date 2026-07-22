@@ -6,16 +6,30 @@ import {
   useSpring,
   AnimatePresence,
 } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 type CursorState = {
   label: string;
   size: number;
 };
 
+// Track the "(pointer: fine)" media query as an external store — avoids
+// setting state synchronously inside an effect (react-hooks/set-state-in-effect).
+function subscribeFinePointer(callback: () => void) {
+  const mq = window.matchMedia("(pointer: fine)");
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+}
+const getFinePointer = () => window.matchMedia("(pointer: fine)").matches;
+const getServerFinePointer = () => false;
+
 export function CustomCursor() {
+  const enabled = useSyncExternalStore(
+    subscribeFinePointer,
+    getFinePointer,
+    getServerFinePointer
+  );
   const [visible, setVisible] = useState(false);
-  const [enabled, setEnabled] = useState(false);
   const [state, setState] = useState<CursorState>({ label: "", size: 16 });
 
   const x = useMotionValue(0);
@@ -24,10 +38,8 @@ export function CustomCursor() {
   const springY = useSpring(y, { stiffness: 420, damping: 32 });
 
   useEffect(() => {
-    const finePointer = window.matchMedia("(pointer: fine)").matches;
-    if (!finePointer) return;
+    if (!enabled) return;
 
-    setEnabled(true);
     document.body.classList.add("has-custom-cursor");
 
     const onMove = (e: MouseEvent) => {
@@ -62,7 +74,7 @@ export function CustomCursor() {
       window.removeEventListener("mouseover", onOver);
       document.documentElement.removeEventListener("mouseleave", onLeave);
     };
-  }, [x, y]);
+  }, [enabled, x, y]);
 
   if (!enabled) return null;
 

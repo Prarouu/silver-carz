@@ -8,15 +8,15 @@ import { fadeUp } from "@/lib/animations";
 const shots = [
   {
     src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
-    alt: "Sports car exterior shine",
+    alt: "Exterior car detailing and polishing finish in Nagpur — sports car shine",
   },
   {
     src: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=900&q=80",
-    alt: "Luxury sedan profile",
+    alt: "Premium car wash result on a luxury sedan at Silver Carz Nagpur",
   },
   {
     src: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=900&q=80",
-    alt: "Car wheel detail",
+    alt: "Alloy wheel and tyre detailing close-up after ceramic coating",
   },
 ];
 
@@ -24,10 +24,11 @@ export function Gallery() {
   return (
     <SectionWrapper
       id="gallery"
-      index="04"
+      index="05"
       eyebrow="Gallery"
       title="Work that catches light."
-      description="A sample set of finishes — swap these with real Silver Carz photos for the pitch."
+      description="Deep gloss, clean cabins, protected paint — the finish standard every car leaves our Nagpur studio with."
+      className="bg-surface/40"
     >
       <div className="grid gap-5 md:grid-cols-3">
         {shots.map((shot, i) => (

@@ -1,4 +1,5 @@
 import { Logo } from "@/components/ui/Logo";
+import { site, mapsLink } from "@/lib/site";
 
 function IgIcon({ className = "" }: { className?: string }) {
   return (
@@ -25,15 +26,31 @@ export function Footer() {
         <div>
           <Logo />
           <p className="mt-4 max-w-sm text-sm text-silver-muted leading-relaxed">
-            Premium car detailing in Mumbai. Black finish. Silver precision.
+            Premium car detailing in Nagpur. Black finish. Silver precision.
             Built for clients who notice the difference.
           </p>
         </div>
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10">
           <div className="text-sm text-silver-muted">
-            <p className="text-foreground mb-1">Studio · Mumbai</p>
-            <p>Mon–Sat · 10:00 AM – 7:00 PM IST</p>
+            <p className="text-foreground mb-1">Studio · Nagpur</p>
+            <p className="max-w-xs">
+              <a
+                href={mapsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors"
+              >
+                Mangalmurti Square, Rajendra Nagar, Takli Seem, Nagpur,
+                Maharashtra 440036
+              </a>
+            </p>
+            <p className="mt-1">
+              <a href={site.phoneHref} className="hover:text-foreground transition-colors">
+                {site.phone}
+              </a>
+            </p>
+            <p className="mt-1">{site.hours.label} IST</p>
           </div>
           <div className="flex items-center gap-3">
             <a
@@ -59,9 +76,16 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <p className="mx-auto mt-10 max-w-7xl text-xs text-silver-muted/70 tracking-wide">
-        © {new Date().getFullYear()} Silver Carz. Demo pitch site.
-      </p>
+      <div className="mx-auto mt-10 max-w-7xl space-y-3">
+        <p className="text-xs text-silver-muted/70 leading-relaxed">
+          Car wash · Car detailing · Ceramic coating · Interior deep cleaning ·
+          Denting &amp; painting — serving{" "}
+          {site.serviceAreas.slice(0, -1).join(", ")} and all of Nagpur.
+        </p>
+        <p className="text-xs text-silver-muted/70 tracking-wide">
+          © {new Date().getFullYear()} Silver Carz. All rights reserved.
+        </p>
+      </div>
     </footer>
   );
 }

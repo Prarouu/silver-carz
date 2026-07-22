@@ -4,20 +4,42 @@ import { motion } from "framer-motion";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { Button } from "@/components/ui/Button";
 import { fadeUp } from "@/lib/animations";
+import { site, whatsappLink } from "@/lib/site";
+
+function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  e.preventDefault();
+  const data = new FormData(e.currentTarget);
+  const name = String(data.get("name") ?? "").trim();
+  const phone = String(data.get("phone") ?? "").trim();
+  const service = String(data.get("service") ?? "").trim();
+  const message = String(data.get("message") ?? "").trim();
+
+  const text = [
+    "New booking request — Silver Carz",
+    "",
+    `Name: ${name || "-"}`,
+    `Phone: ${phone || "-"}`,
+    `Service: ${service || "-"}`,
+    message ? `Message: ${message}` : null,
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
+
+  window.open(whatsappLink(text), "_blank", "noopener,noreferrer");
+}
 
 export function Contact() {
   return (
     <SectionWrapper
       id="contact"
-      index="07"
+      index="08"
       eyebrow="Contact"
       title="Book your slot."
       description="Share your car details — we'll confirm your appointment within a few hours."
-      className="bg-surface/40"
     >
       <motion.form
         variants={fadeUp}
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={handleSubmit}
         className="mx-auto max-w-2xl premium-card p-6 md:p-10 space-y-5"
       >
         <div className="grid gap-4 sm:grid-cols-2">
@@ -26,6 +48,8 @@ export function Contact() {
               Name
             </span>
             <input
+              name="name"
+              required
               data-cursor
               data-cursor-label="Type"
               data-cursor-size="40"
@@ -38,6 +62,9 @@ export function Contact() {
               Phone
             </span>
             <input
+              name="phone"
+              type="tel"
+              required
               data-cursor
               data-cursor-label="Type"
               data-cursor-size="40"
@@ -51,6 +78,8 @@ export function Contact() {
             Service
           </span>
           <select
+            name="service"
+            required
             data-cursor
             data-cursor-label="Pick"
             data-cursor-size="48"
@@ -58,11 +87,19 @@ export function Contact() {
             defaultValue=""
           >
             <option value="" disabled>
-              Select a package
+              Select a service
             </option>
-            <option>Express</option>
-            <option>Signature</option>
-            <option>Ceramic Plus</option>
+            <option>Basic Water Wash</option>
+            <option>Touchless Shampoo Wash</option>
+            <option>Touchless Wash + Vacuum + Polish</option>
+            <option>Premium Car Spa</option>
+            <option>Interior Deep Cleaning</option>
+            <option>Engine Bay Cleaning</option>
+            <option>Ceramic / PPF Shampoo Wash</option>
+            <option>Premium Detailing Wash</option>
+            <option>Rubbing &amp; Polishing</option>
+            <option>Ceramic Coating</option>
+            <option>Other (Denting / Painting / Service / Repairing)</option>
           </select>
         </label>
         <label className="block">
@@ -70,6 +107,7 @@ export function Contact() {
             Message
           </span>
           <textarea
+            name="message"
             rows={4}
             data-cursor
             data-cursor-label="Type"
@@ -79,8 +117,18 @@ export function Contact() {
           />
         </label>
         <Button type="submit" variant="pill" cursorLabel="Send" className="w-full sm:w-auto">
-          Request booking
+          Request booking on WhatsApp
         </Button>
+        <p className="text-xs text-silver-muted">
+          Prefer to talk?{" "}
+          <a
+            href={site.phoneHref}
+            className="text-foreground underline underline-offset-4 hover:text-accent transition-colors"
+          >
+            Call {site.phone}
+          </a>{" "}
+          · {site.hours.label}
+        </p>
       </motion.form>
     </SectionWrapper>
   );

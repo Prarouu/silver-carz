@@ -10,6 +10,8 @@ type Props = {
   children: ReactNode;
   variant?: Variant;
   href?: string;
+  /** Set for external links — opens in a new tab with rel="noopener noreferrer". */
+  external?: boolean;
   cursorLabel?: string;
   className?: string;
   type?: "button" | "submit" | "reset";
@@ -20,6 +22,7 @@ export function Button({
   children,
   variant = "pill",
   href,
+  external = false,
   cursorLabel = "Go",
   className = "",
   type = "button",
@@ -63,6 +66,7 @@ export function Button({
     return (
       <motion.a
         href={href}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         className={cls}
